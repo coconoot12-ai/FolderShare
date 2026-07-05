@@ -1,130 +1,68 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FolderShare</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FolderShare</title>
 
-<style>
-body{
-    font-family: Arial, sans-serif;
-    background:#f4f6f9;
-    margin:0;
-    padding:40px;
-}
-
-.container{
-    max-width:800px;
-    margin:auto;
-    background:white;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0 0 15px rgba(0,0,0,0.1);
-}
-
-h1{
-    color:#2563eb;
-}
-
-.box{
-    border:2px dashed #2563eb;
-    padding:25px;
-    text-align:center;
-    border-radius:10px;
-    margin-top:20px;
-}
-
-button{
-    margin-top:20px;
-    padding:12px 25px;
-    border:none;
-    border-radius:8px;
-    background:#2563eb;
-    color:white;
-    cursor:pointer;
-    font-size:16px;
-}
-
-button:hover{
-    background:#1d4ed8;
-}
-
-#fileInfo{
-    margin-top:15px;
-    color:green;
-    font-weight:bold;
-}
-
-.instructions{
-    background:#eef4ff;
-    padding:15px;
-    border-radius:10px;
-    margin-bottom:20px;
-}
-</style>
+    /static/style.css
 </head>
 <body>
 
 <div class="container">
 
-<h1>📁 FolderShare</h1>
+    <h1>📁 FolderShare</h1>
+    <p class="subtitle">
+        Deel bestanden met een unieke code.
+    </p>
 
-<div class="instructions">
-<h3>Instructies</h3>
+    <section class="card">
 
-<ol>
-<li>Klik op <b>Selecteer map</b>.</li>
-<li>Kies de map die je wilt delen.</li>
-<li>De browser selecteert automatisch alle bestanden in die map.</li>
-<li>Klik op <b>Uploaden</b>.</li>
-<li>Na het uploaden krijg je een share-code.</li>
-<li>Stuur die code naar iemand anders.</li>
-</ol>
+        <h2>🚀 Map delen</h2>
 
-<p>
-⚠️ Werkt map-selectie niet?
-Maak dan eerst een ZIP-bestand van de map en upload dat ZIP-bestand.
-</p>
+        /share" enctype="multipart/form-data">
 
-</div>
+            <div class="upload-box">
 
+                <input
+                    type="file"
+                    id="folderInput"
+                    name="files"
+                    webkitdirectory
+                    multiple>
 
-<div class="box">
+                <p id="fileInfo">
+                    Geen map geselecteerd
+                </p>
 
-<input
-type="file"
-name="files"
-id="folderInput"
-webkitdirectory
-multiple>
+            </div>
 
-<div id="fileInfo">
-Geen map geselecteerd
-</div>
+            <button type="submit">
+                Deel bestanden
+            </button>
 
-</div>
+        </form>
 
-<button type="submit">
-Uploaden
-</button>
+    </section>
 
-</form>
+    <section class="card">
 
-<hr>
+        <h2>📥 Bestand ophalen</h2>
 
-<h2>⬇ Bestand downloaden</h2>
+        " method="get">
 
+            <input
+                type="text"
+                name="code"
+                placeholder="Voer share-code in">
 
-<input
-type="text"
-name="code"
-placeholder="Voer share-code in">
+            <button type="submit">
+                Downloaden
+            </button>
 
-<button type="submit">
-Downloaden
-</button>
+        </form>
 
-</form>
+    </section>
 
 </div>
 
@@ -136,28 +74,23 @@ document.getElementById("folderInput");
 const fileInfo =
 document.getElementById("fileInfo");
 
-folderInput.addEventListener(
-"change",
-function(){
+folderInput.addEventListener("change", () => {
 
-const count =
-this.files.length;
+    const count = folderInput.files.length;
 
-if(count > 0){
+    if(count > 0){
 
-fileInfo.innerHTML =
-"✅ " + count +
-" bestanden geselecteerd";
+        fileInfo.textContent =
+        `✅ ${count} bestanden geselecteerd`;
 
-}else{
+    } else {
 
-fileInfo.innerHTML =
-"Geen map geselecteerd";
+        fileInfo.textContent =
+        "Geen map geselecteerd";
 
-}
+    }
 
-}
-);
+});
 
 </script>
 
